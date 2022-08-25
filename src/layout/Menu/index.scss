@@ -1,0 +1,33 @@
+.menu {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background-color: #191a20;
+	transition: all 0.3s ease;
+	width: 220px;
+	// 滚动条
+	.el-scrollbar {
+		height: calc(100% - 55px);
+		.el-menu {
+			flex: 1;
+			overflow: auto;
+			overflow-x: hidden;
+			border-right: none;
+			.el-menu-item {
+				&.is-active {
+					background-color: #060708 !important;
+				}
+				&.is-active::before {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					width: 4px;
+					content: '';
+					background: #409EFF;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,9 @@
+# prettierignore 格式化忽略文件
+/dist/*
+.local
+/node_modules/**
+
+**/*.svg
+**/*.sh
+
+/public/*
