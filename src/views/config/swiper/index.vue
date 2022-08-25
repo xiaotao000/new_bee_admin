@@ -4,13 +4,14 @@
 	import { Delete, Plus } from '@element-plus/icons-vue'
 	import { type FormRules, type FormInstance, ElMessage, UploadProps } from 'element-plus'
 	import { GlobalStore } from '@/stores'
+	import Pagination from '@/components/Pagination/index.vue'
 
 	const data = reactive({
 		page: {
 			pageNumber: 1,
-			pageSize: 10
+			pageSize: 10,
+			totalCount: 0
 		},
-		resultCode: 0,
 		list: [],
 		dialogVisible: false,
 		selection: []
@@ -20,7 +21,7 @@
 			data: { list, totalCount }
 		} = await getSwiper(data.page)
 		data.list = list
-		data.resultCode = totalCount
+		data.page.totalCount = totalCount
 	}
 	onMounted(() => {
 		getSwiperList()
@@ -148,16 +149,7 @@
 			</template>
 		</el-table-column>
 	</el-table>
-	<el-pagination
-		background
-		layout="prev, pager, next, total, sizes"
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:page-sizes="[10, 20, 30, 40, 50, 100]"
-		:v-model:currentPage="data.page.pageNumber"
-		:v-model:current-page="data.page.pageSize"
-		:total="data.resultCode"
-	/>
+	<Pagination :page="data.page" @page-change="handleSizeChange" @size-change="handleCurrentChange" />
 	<el-dialog
 		v-model="data.dialogVisible"
 		:title="swiperForm.carouselId ? '修改轮播图' : '新增轮播图'"
