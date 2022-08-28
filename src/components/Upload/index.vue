@@ -1,14 +1,14 @@
 <script setup lang="ts">
-	import { GlobalStore } from '@/store'
+	import { GlobalStore } from '@/stores'
 	import { ElMessage } from 'element-plus'
 	// Props接收
-	defineProps<{ a: string }>()
+	defineProps<{ url: string }>()
 	// Emit返回
-	const Emit = defineEmits(['update:a'])
+	const Emit = defineEmits(['update:url'])
 
 	// 图片上传成功
 	const handleAvatarSuccess = response => {
-		Emit('update:a', response.data)
+		Emit('update:url', response.data)
 	}
 
 	// 上传图片前【拦截上传操作 return false】
@@ -28,13 +28,13 @@
 	<!-- 上传组件 -->
 	<el-upload
 		class="avatar-uploader"
-		action="/ys/upload/file"
+		action="/api/upload/file"
 		:headers="{ token: GlobalStore().token }"
 		:show-file-list="false"
 		:on-success="handleAvatarSuccess"
 		:before-upload="beforeAvatarUpload"
 	>
-		<img v-if="a" :src="a" class="avatar" />
+		<img v-if="url" :src="url" class="avatar" />
 		<el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
 	</el-upload>
 </template>

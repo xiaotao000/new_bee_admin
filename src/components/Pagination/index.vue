@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup lang="ts" name="Pagination">
 	defineProps<{
-		page: {
-			totalCount: number
-			pageNumber: number
+		pageable: {
+			total: number
 			pageSize: number
+			pageNumber: number
 		}
 	}>()
 	defineEmits(['sizeChange', 'pageChange'])
@@ -12,13 +12,13 @@
 <template>
 	<el-pagination
 		background
-		layout="prev, pager, next, total, sizes"
-		@size-change="$emit('pageChange', $event)"
-		@current-change="$emit('sizeChange', $event)"
-		:page-sizes="[10, 20, 30, 40, 50, 100]"
-		:currentPage="page.pageNumber"
-		:current-page="page.pageSize"
-		:total="page.totalCount"
+		layout="total, sizes, prev, pager, next, jumper"
+		:page-sizes="[10, 20, 30, 40, 50]"
+		:total="pageable.total"
+		:currentPage="pageable.pageNumber"
+		:page-size="pageable.pageSize"
+		@current-change="$emit('pageChange', $event)"
+		@size-change="$emit('sizeChange', $event)"
 	/>
 </template>
 
